@@ -1,5 +1,6 @@
 const sequelize = require("../config/db");
 const { DataTypes } = require("sequelize");
+const Region = require("./region.schema");
 
 const District = sequelize.define(
   "district",
@@ -17,5 +18,8 @@ const District = sequelize.define(
     freezeTableName: true,
   }
 );
+
+Region.hasMany(District);
+District.belongsTo(Region);
 
 module.exports = District;

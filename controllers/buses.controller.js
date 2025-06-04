@@ -1,12 +1,16 @@
 const { sendErrorResponse } = require("../helpers/send_error_response");
-const District = require("../schemas/district.schema");
+const Busd = require("../schemas/buses.schema");
 
 const add = async (req, res) => {
   try {
-    const { name, region_id } = req.body;
+    const { number_place, seat_count, model } = req.body;
 
-    const newDistrict = await District.create({ name, region_id });
-    res.status(201).send({ message: "New District created!", newDistrict });
+    const newBusd = await Busd.create({
+      number_place,
+      seat_count,
+      model,
+    });
+    res.status(201).send({ message: "New Busd created!", newBusd });
   } catch (error) {
     sendErrorResponse(error, res, 400);
   }
@@ -14,8 +18,8 @@ const add = async (req, res) => {
 
 const getAll = async (req, res) => {
   try {
-    const district = await District.findAll();
-    res.status(200).send(district);
+    const bus = await Busd.findAll();
+    res.status(200).send(bus);
   } catch (error) {
     sendErrorResponse(error, res, 400);
   }
@@ -24,8 +28,8 @@ const getAll = async (req, res) => {
 const getById = async (req, res) => {
   try {
     let { id } = req.params;
-    const district = await District.findByPk(id);
-    res.status(200).send(district);
+    const bus = await Busd.findByPk(id);
+    res.status(200).send(bus);
   } catch (error) {
     sendErrorResponse(error, res, 400);
   }
@@ -34,8 +38,8 @@ const getById = async (req, res) => {
 const remove = async (req, res) => {
   try {
     let { id } = req.params;
-    const district = await District.destroy({ where: { id } });
-    res.status(200).send(district);
+    const bus = await Busd.destroy({ where: { id } });
+    res.status(200).send(bus);
   } catch (error) {
     sendErrorResponse(error, res, 400);
   }
@@ -43,14 +47,14 @@ const remove = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const district = await District.update(
+    const bus = await Busd.update(
       { ...req.body },
       {
         where: { id: req.params.id },
         returning: true,
       }
     );
-    res.status(200).send(district);
+    res.status(200).send(bus);
   } catch (error) {
     sendErrorResponse(error, res, 400);
   }

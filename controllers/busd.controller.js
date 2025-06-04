@@ -1,12 +1,15 @@
 const { sendErrorResponse } = require("../helpers/send_error_response");
-const Bus = require("../schemas/bus.schema");
+const Busd = require("../schemas/busd.schema");
 
 const add = async (req, res) => {
   try {
-    const { name, seat_count, model } = req.body;
+    const { bus_id, driver_id } = req.body;
 
-    const newBus = await Bus.create({ name, seat_count, model });
-    res.status(201).send({ message: "New Bus created!", newBus });
+    const newBusd = await Busd.create({
+      bus_id,
+      driver_id,
+    });
+    res.status(201).send({ message: "New Busd created!", newBusd });
   } catch (error) {
     sendErrorResponse(error, res, 400);
   }
@@ -14,7 +17,7 @@ const add = async (req, res) => {
 
 const getAll = async (req, res) => {
   try {
-    const bus = await Bus.findAll();
+    const bus = await Busd.findAll();
     res.status(200).send(bus);
   } catch (error) {
     sendErrorResponse(error, res, 400);
@@ -24,7 +27,7 @@ const getAll = async (req, res) => {
 const getById = async (req, res) => {
   try {
     let { id } = req.params;
-    const bus = await Bus.findByPk(id);
+    const bus = await Busd.findByPk(id);
     res.status(200).send(bus);
   } catch (error) {
     sendErrorResponse(error, res, 400);
@@ -34,7 +37,7 @@ const getById = async (req, res) => {
 const remove = async (req, res) => {
   try {
     let { id } = req.params;
-    const bus = await Bus.destroy({ where: { id } });
+    const bus = await Busd.destroy({ where: { id } });
     res.status(200).send(bus);
   } catch (error) {
     sendErrorResponse(error, res, 400);
@@ -43,7 +46,7 @@ const remove = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const bus = await Bus.update(
+    const bus = await Busd.update(
       { ...req.body },
       {
         where: { id: req.params.id },

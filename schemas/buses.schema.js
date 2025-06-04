@@ -1,8 +1,8 @@
 const sequelize = require("../config/db");
 const { DataTypes } = require("sequelize");
 
-const Bus = sequelize.define(
-  "bus",
+const Buses = sequelize.define(
+  "buses",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -24,4 +24,4 @@ const Bus = sequelize.define(
   }
 );
 
-module.exports = Bus;
+module.exports = Buses;

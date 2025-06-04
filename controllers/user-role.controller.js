@@ -1,19 +1,19 @@
 const { sendErrorResponse } = require("../helpers/send_error_response");
+const User_role = require("../schemas/user-role.schema");
 
 const add = async (req, res) => {
   try {
-    const { userId, roleId } = req.body;
+    const { userId, role_id } = req.body;
 
-    
-    const role = await User_role.findByPk(roleId);
-    if (!role) {
+    const User_role = await User_role.findByPk(role_id);
+    if (!User_role) {
       return sendErrorResponse(
-        { message: "Bunday role mavjud emas" },
+        { message: "Bunday User_role mavjud emas" },
         res,
         400
       );
     }
-    const user = await User.findByPk(userId);
+    const user = await User_role.findByPk(userId);
     if (!user) {
       return sendErrorResponse(
         { message: "Bunday user mavjud emas" },
@@ -22,9 +22,8 @@ const add = async (req, res) => {
       );
     }
 
-
-    const newRole = await Role.create({ userId, roleId });
-    res.status(201).send({ message: "New role created!", newRole });
+    const newUser_role = await User_role.create({ userId, role_id });
+    res.status(201).send({ message: "New User_role created!", newUser_role });
   } catch (error) {
     sendErrorResponse(error, res, 400);
   }
@@ -32,8 +31,8 @@ const add = async (req, res) => {
 
 const getAll = async (req, res) => {
   try {
-    const rolesies = await Role.findAll();
-    res.status(200).send(rolesies);
+    const User_roless = await User_role.findAll();
+    res.status(200).send(User_roless);
   } catch (error) {
     sendErrorResponse(error, res, 400);
   }
@@ -42,8 +41,8 @@ const getAll = async (req, res) => {
 const getById = async (req, res) => {
   try {
     let { id } = req.params;
-    const rolesies = await Role.findByPk(id);
-    res.status(200).send(rolesies);
+    const User_roless = await User_role.findByPk(id);
+    res.status(200).send(User_roless);
   } catch (error) {
     sendErrorResponse(error, res, 400);
   }
@@ -52,8 +51,8 @@ const getById = async (req, res) => {
 const remove = async (req, res) => {
   try {
     let { id } = req.params;
-    const rolesies = await Role.destroy({ where: { id } });
-    res.status(200).send(rolesies);
+    const User_roless = await User_role.destroy({ where: { id } });
+    res.status(200).send(User_roless);
   } catch (error) {
     sendErrorResponse(error, res, 400);
   }
@@ -61,14 +60,14 @@ const remove = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const rolesies = await Role.update(
+    const User_roless = await User_role.update(
       { ...req.body },
       {
         where: { id: req.params.id },
         returning: true,
       }
     );
-    res.status(200).send(rolesies);
+    res.status(200).send(User_roless);
   } catch (error) {
     sendErrorResponse(error, res, 400);
   }
