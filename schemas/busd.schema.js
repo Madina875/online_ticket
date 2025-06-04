@@ -17,10 +17,14 @@ const Busd = sequelize.define(
   }
 );
 
-Driver.hasMany(Busd);
-Busd.belongsTo(Driver);
+Buses.belongsToMany(Driver, {
+  through: Busd,
+  // foreignKey: "user_id"
+});
 
-Buses.hasMany(Busd);
-Busd.belongsTo(Buses);
+Driver.belongsToMany(Buses, { through: Busd });
+
+Busd.belongsTo(Busd);
+Busd.belongsTo(Driver);
 
 module.exports = Busd;
