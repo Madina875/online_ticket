@@ -6,7 +6,7 @@ const {
   getById,
   remove,
   update,
-} = require("../controllers/bus.controller");
+} = require("../controllers/busd.controller");
 
 router.get("/", getAll);
 router.post("/", add);

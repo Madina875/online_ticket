@@ -1,6 +1,5 @@
 const sequelize = require("../config/db");
 const { DataTypes } = require("sequelize");
-const User_role = require("../schemas/user-role.schema");
 
 const Role = sequelize.define(
   "role",
@@ -21,8 +20,5 @@ const Role = sequelize.define(
     freezeTableName: true,
   }
 );
-
-Role.hasMany(User_role);
-User_role.belongsTo(Role);
 
 module.exports = Role;
