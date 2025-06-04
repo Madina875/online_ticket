@@ -17,3 +17,5 @@ router.use("/drivers", driverRouter);
 router.use("/region", regionRouter);
 router.use("/busd", busRouter);
 router.use("/bus", busesRouter);
+
+module.exports = router;
