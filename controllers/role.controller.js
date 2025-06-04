@@ -1,5 +1,7 @@
 const { sendErrorResponse } = require("../helpers/send_error_response");
 
+const Role = require("../schemas/role.schema");
+
 const add = async (req, res) => {
   try {
     const { name, description } = req.body;
