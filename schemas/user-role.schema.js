@@ -2,6 +2,7 @@ const sequelize = require("../config/db");
 const { DataTypes } = require("sequelize");
 
 const User = require("../schemas/user.schema");
+const Role = require("./role.schema");
 
 const User_role = sequelize.define(
   "user_role",

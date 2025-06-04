@@ -1,18 +1,27 @@
 const express = require("express");
-const PORT = 3000;
+const config = require("config");
+const sequelize = require("./config/db");
+// const cookieParser = require("cookie-parser");
+
+const PORT = config.get("port");
+
+const indexRouter = require("./routes/auth.route");
 const app = express();
 
-app.get("/test", (req, res) => {
-  console.log("Test");
-  res.send({ message: "Server connected ✅" });
-});
+app.use(express.json());
 
-app.use((err, req, res, next) => {
-  //   console.log(err.message);
-  res.status(500).send(err.message);
-});
+// app.use(cookieParser()); //
+app.use("/api", indexRouter);
 
-app.listen(PORT, () => {
-  console.log(` http://localhost:${PORT} connected ✅`);
-});
-
+async function start() {
+  try {
+    await sequelize.authenticate();
+    await sequelize.sync({ alter: true });
+    app.listen(PORT, () => {
+      console.log(`server running at: http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+start();
