@@ -17,7 +17,14 @@ const User_role = sequelize.define(
   }
 );
 
-User.hasMany(User_role);
+User.belongsToMany(Role, {
+  through: User_role,
+  // foreignKey: "user_id"
+});
+
+Role.belongsToMany(User, { through: User_role });
+
 User_role.belongsTo(User);
+User_role.belongsTo(Role);
 
 module.exports = User_role;
